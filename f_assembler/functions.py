@@ -3,23 +3,11 @@ import subprocess
 def what_am_i():
     print("Assembly module")
     
-    
+
 """
 PLACEHOLDERS
 """
 
-def run_dorado(model, input_dir, output_dir):
-    command = [
-        'dorado',
-        'basecaller',
-        '--model', model,
-        input_dir,
-        '--output', output_dir
-    ]
-    try:
-        subprocess.run(command, check=True)
-    except subprocess.CalledProcessError as e:
-        raise e
 
 def run_chopper(input_reads, output_reads):
     command = [
