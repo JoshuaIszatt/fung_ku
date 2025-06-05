@@ -11,6 +11,10 @@ from functions import (
     run_tidk_find_telomeres
 )
 
+"""
+PLACEHOLDER PIPELINE
+"""
+
 def fungal_genome_assembly_pipeline(
     sample_name: str,
     raw_data_dir: str,
