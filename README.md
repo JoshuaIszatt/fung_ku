@@ -5,7 +5,11 @@
 
 # Todo
 
-### Features
+### Reproducibility
+* Conda export and pack environment for reusability
+* Containerise application / version source code for manuscript
+
+### Feature additions
 * Implement error handling for assembly pipeline
 * Build out annotation pipeline
 * Build out phylogeny pipeline
