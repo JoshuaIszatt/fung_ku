@@ -22,9 +22,9 @@
 ### Phylogenetics best practices?
 * Fungal phylogeny best practices for WGS
     - Orthofinder + BUSCO ? (Ortholog inference across species)
-    - FGMP: https://github.com/stajichlab/FGMP
+    - FGMP: https://github.com/stajichlab/FGMP (Uses limited set of 25 previous fungi)
     - fungphy: https://github.com/gamcil/fungiphy
-    - UFCG pipeline: https://github.com/steineggerlab/ufcg
+    - UFCG pipeline: https://github.com/steineggerlab/ufcg (Able to use our own marker genes)
 
 * Phylogenetic tree:
     1. MAFFT / MUSCLE alignment using AA sequence (https://github.com/GSLBiotech/mafft)
