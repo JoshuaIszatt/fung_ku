@@ -1,11 +1,14 @@
 # pipelines.py
 
+import os
 from pathlib import Path
-from functions import (
+from .functions import (
     run_chopper,
+    run_porechop,
     run_flye,
     run_pypolca,
-    run_polypolish,
+    run_polypolish_filter,
+    run_polypolish_polish,
     run_minimap2,
     run_tidk_find_telomeres
 )
@@ -31,10 +34,10 @@ def fungal_genome_assembly_pipeline(
         illumina_r2 (str): Path to Illumina read 2.
         output_base_dir (str): Base directory for all output.
     """
-
     # Setup output paths
-    base_dir = Path(output_base_dir) / sample_name
-    filtered_reads = base_dir / "01_filtered_reads.fq"
+    base_dir = Path(output_base_dir).resolve() / sample_name
+    
+    filtered_reads = os.sep.join([base_dir, "01_filtered_reads.fq"])
     assembly_dir = base_dir / "02_flye_assembly"
     polished_dir = base_dir / "03_polished"
     polypolish_output = base_dir / "04_polypolish.fasta"
@@ -46,6 +49,8 @@ def fungal_genome_assembly_pipeline(
     base_dir.mkdir(parents=True, exist_ok=True)
     assembly_dir.mkdir(parents=True, exist_ok=True)
     polished_dir.mkdir(parents=True, exist_ok=True)
+    
+    # todo: Add read reformatting from .bam to fastq
 
     print(f"[{sample_name}]\tStep 1: Read filtering with chopper...")
     run_chopper(str(long_reads_bam), str(filtered_reads))  # Adjust chopper if input must be FASTQ
@@ -62,7 +67,7 @@ def fungal_genome_assembly_pipeline(
 
     print(f"[{sample_name}]\tStep 4: Second polishing with Polypolish...")
     bam_file = polished_dir / "reads.bam"  # Update if this needs to be created earlier
-    run_polypolish(str(polished_fasta), str(bam_file), str(polypolish_output))
+    #run_polypolish(str(polished_fasta), str(bam_file), str(polypolish_output))
 
     print(f"[{sample_name}]\tStep 5: Mapping reads with Minimap2...")
     run_minimap2("lr:hq", str(polypolish_output), str(filtered_reads), str(longread_map_sam))
